@@ -5,10 +5,13 @@ import com.example.deliveryservice.model.User;
 import com.example.deliveryservice.repository.UserRepository;
 import com.example.deliveryservice.request.UserSave;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
@@ -30,6 +33,7 @@ public class UserService {
                 user.setRole(Roles.ADMIN);
                 break;
         }
+        user.setRole(Roles.valueOf(userSave.getRole()));
 
         userRepository.save(user);
     }
@@ -50,5 +54,10 @@ public class UserService {
             userToUpdate.setPhone(userSave.getPhone());
             userRepository.save(userToUpdate);
         }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUserName(username);
     }
 }

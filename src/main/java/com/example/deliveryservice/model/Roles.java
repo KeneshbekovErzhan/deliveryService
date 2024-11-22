@@ -1,7 +1,18 @@
 package com.example.deliveryservice.model;
 
-public enum Roles {
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.List;
+
+public enum Roles implements GrantedAuthority {
     USER,
-    COURIER,
-    ADMIN
+    ADMIN,
+    COURIER;
+
+    public String getAuthority() {
+        return "ROLE_" + this.name();
+    }
+
+    List<Roles> roles;
+
 }

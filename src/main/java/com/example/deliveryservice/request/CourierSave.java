@@ -1,6 +1,6 @@
 package com.example.deliveryservice.request;
 
-import jakarta.persistence.Column;
+
 import lombok.Data;
 
 @Data
