@@ -34,8 +34,8 @@ public class SecurityConfig {
                                 .requestMatchers("/api/users/create", "/api-docs/**", "/api/login").permitAll() // Несколько маршрутов
                                 .anyRequest().authenticated()
                         // Все остальные запросы требуют аутентификации
-                ) ;
-            //    .csrf(csrf -> csrf.disable());
+                )
+        .csrf(csrf -> csrf.disable());
             //    .addFilter(authenticationFilter)
               //  .addFilterBefore(authorizationFilter, AuthenticationFilter.class);
 
