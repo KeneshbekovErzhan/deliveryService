@@ -1,4 +1,4 @@
-package com.example.deliveryservice.request;
+package com.example.deliveryservice.dto;
 import lombok.Data;
 
 @Data

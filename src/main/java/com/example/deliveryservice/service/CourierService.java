@@ -2,7 +2,7 @@ package com.example.deliveryservice.service;
 
 import com.example.deliveryservice.model.Courier;
 import com.example.deliveryservice.repository.CourierRepository;
-import com.example.deliveryservice.request.CourierSave;
+import com.example.deliveryservice.dto.CourierSave;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

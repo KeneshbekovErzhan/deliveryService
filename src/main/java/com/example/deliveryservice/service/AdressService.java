@@ -4,7 +4,7 @@ import com.example.deliveryservice.model.Adress;
 import com.example.deliveryservice.model.User;
 import com.example.deliveryservice.repository.AdressRepository;
 import com.example.deliveryservice.repository.UserRepository;
-import com.example.deliveryservice.request.AdressSave;
+import com.example.deliveryservice.dto.AdressSave;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.example.deliveryservice.response;
+package com.example.deliveryservice.dto;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

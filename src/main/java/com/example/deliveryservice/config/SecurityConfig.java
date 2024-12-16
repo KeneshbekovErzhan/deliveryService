@@ -1,61 +1,43 @@
 package com.example.deliveryservice.config;
 
 import com.example.deliveryservice.service.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-public class SecurityConfig {
-
+@EnableGlobalMethodSecurity(securedEnabled = true)
+public class SecurityConfig extends WebSecurityConfiguration {
     @Autowired
-    private final UserService userDetailsService;
-    @Autowired
-    private final PasswordEncoder passwordEncoder;
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
+    private final UserService userService;
 
-//
-                .authorizeHttpRequests(authorize -> authorize
-                                .requestMatchers("/api/users/create", "/api-docs/**", "/api/login").permitAll() // Несколько маршрутов
-                                .anyRequest().authenticated()
-                        // Все остальные запросы требуют аутентификации
-                )
-        .csrf(csrf -> csrf.disable());
-            //    .addFilter(authenticationFilter)
-              //  .addFilterBefore(authorizationFilter, AuthenticationFilter.class);
-
-
-
-        return http.build();
-
+    public SecurityConfig(UserService userService) {
+        this.userService = userService;
     }
 
     @Bean
-    public AuthenticationProvider getAuthenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsService);
-        provider.setPasswordEncoder(passwordEncoder);
-        return provider;
+    public DaoAuthenticationProvider daoAuthenticationProvider(){
+        daoAuthenticationProvider().setPasswordEncoder(passwordEncoder());
+        daoAuthenticationProvider().setUserDetailsService(userService);
+        return daoAuthenticationProvider();
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
-            throws Exception {
-        return config.getAuthenticationManager();
+    public BCryptPasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
 }

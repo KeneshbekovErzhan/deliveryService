@@ -5,11 +5,9 @@ import com.example.deliveryservice.repository.AdressRepository;
 import com.example.deliveryservice.repository.CourierRepository;
 import com.example.deliveryservice.repository.ParcelRepository;
 import com.example.deliveryservice.repository.UserRepository;
-import com.example.deliveryservice.request.ParcelSave;
+import com.example.deliveryservice.dto.ParcelSave;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class ParcelService {

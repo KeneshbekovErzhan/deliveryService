@@ -1,8 +1,7 @@
 package com.example.deliveryservice.controller;
 
 import com.example.deliveryservice.model.User;
-import com.example.deliveryservice.repository.UserRepository;
-import com.example.deliveryservice.request.UserSave;
+import com.example.deliveryservice.dto.UserSave;
 import com.example.deliveryservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +14,8 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody UserSave userSave){
+    public void create(@RequestBody UserSave userSave){
         userService.saveUser(userSave);
-        return ResponseEntity.ok("User saved!");
     }
 
     @GetMapping("/getById/{id}")

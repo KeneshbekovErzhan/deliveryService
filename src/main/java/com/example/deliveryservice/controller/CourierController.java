@@ -1,9 +1,7 @@
 package com.example.deliveryservice.controller;
 
 import com.example.deliveryservice.model.Courier;
-import com.example.deliveryservice.model.User;
-import com.example.deliveryservice.request.CourierSave;
-import com.example.deliveryservice.request.UserSave;
+import com.example.deliveryservice.dto.CourierSave;
 import com.example.deliveryservice.service.CourierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
